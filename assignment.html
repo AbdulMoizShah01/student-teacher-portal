@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assignment: Student–Teacher Web Application</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f9fafb; /* light background */
+      --card:#ffffff;
+      --muted:#4b5563;
+      --accent:#2563eb; /* blue-600 */
+      --glass: rgba(0,0,0,0.03);
+      --glass-2: rgba(0,0,0,0.02);
+      --success:#16a34a;
+      color-scheme: light;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;background:var(--bg);color:#111827}
+    .container{max-width:1500px;margin:40px auto;padding:28px;border-radius:14px;background:var(--card);box-shadow:0 8px 30px rgba(0,0,0,0.08);}
+    header{display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#3b82f6);display:flex;align-items:center;justify-content:center;font-weight:800;color:white;font-size:20px;box-shadow:0 6px 18px rgba(37,99,235,0.22)}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
+
+    .meta{display:flex;gap:10px;align-items:center}
+    .pill{padding:8px 12px;border-radius:999px;background:var(--glass);font-weight:600;font-size:13px;color:var(--muted);}
+
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:20px;margin-top:22px}
+    .card{background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(0,0,0,0.05)}
+    h2{margin:0;font-size:16px}
+    h3{margin:0;font-size:14px}
+    ul{margin:10px 0 12px 18px;color:var(--muted)}
+    li{margin:8px 0}
+
+    .section-title{display:flex;align-items:center;justify-content:space-between}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .tag{background:rgba(0,0,0,0.03);padding:6px 10px;border-radius:8px;font-weight:600;color:var(--muted);font-size:13px}
+
+    .deadline{display:flex;gap:10px;align-items:center;padding:12px;border-radius:10px;background:linear-gradient(90deg, rgba(37,99,235,0.1), rgba(59,130,246,0.06));border:1px solid rgba(37,99,235,0.12)}
+    .deadline strong{color:var(--accent);}
+
+    .deliverables li{margin:10px 0}
+
+    footer{margin-top:18px;display:flex;justify-content:space-between;align-items:center}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;font-weight:700;background:linear-gradient(90deg,var(--accent),#3b82f6);color:white;text-decoration:none}
+    .muted-small{color:var(--muted);font-size:13px}
+
+    @media (max-width:880px){.grid{grid-template-columns:1fr;}.container{margin:20px;padding:16px}}
+
+    @media print{
+      body{background:white;color:black}
+      .container{background:white;box-shadow:none}
+      .logo{display:none}
+      .btn, footer{display:none}
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">ST</div>
+        <div>
+          <h1>Assignment: Student–Teacher Web Application</h1>
+          <p class="lead">Design and implement a production-ready web app for a school with distinct student and teacher roles.</p>
+        </div>
+      </div>
+      <div class="meta">
+        <div class="pill">Assigned to: Abdul-Moiz</div>
+        <div class="pill">Next-js Assestment</div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <section>
+        <article class="card">
+          <div class="section-title">
+            <h2>Objective</h2>
+            <div class="muted-small">Create a role-based web application for school use</div>
+          </div>
+          <p class="muted-small" style="margin-top:10px">Build a Student–Teacher system where teachers can create quizzes and manage attendance, and students can take quizzes and check their marks.</p>
+
+          <hr style="border:none;height:1px;background:rgba(0,0,0,0.05);margin:14px 0">
+
+          <h3>Roles &amp; Features</h3>
+          <div style="display:flex;gap:18px;margin-top:12px;flex-wrap:wrap">
+            <div style="flex:1;min-width:220px">
+              <h4 style="margin:0 0 8px 0;color:#1e3a8a">Teacher</h4>
+              <ul>
+                <li><strong>Signup/Login:</strong> Email, name, and class they teach.</li>
+                <li><strong>Quiz Management:</strong> Create quizzes for a specific date &amp; time (questions, types, options).</li>
+                <li><strong>Evaluation:</strong> View student attempts and grade them.</li>
+                <li><strong>Attendance:</strong> View student check-ins.</li>
+              </ul>
+            </div>
+
+            <div style="flex:1;min-width:220px">
+              <h4 style="margin:0 0 8px 0;color:#1e3a8a">Student</h4>
+              <ul>
+                <li><strong>Signup/Login:</strong> Email, name, and class.</li>
+                <li><strong>Quizzes:</strong> Attempt quizzes assigned by teachers.</li>
+                <li><strong>Attendance:</strong> Daily check-in for attendance.</li>
+                <li><strong>Marks:</strong> View quiz marks and results.</li>
+              </ul>
+            </div>
+          </div>
+
+          <hr style="border:none;height:1px;background:rgba(0,0,0,0.05);margin:14px 0">
+
+          <h3>Technical Requirements</h3>
+          <ul>
+            <li><strong>Frontend:</strong> Next.js (Middleware &amp; API Routes required), Redux, Tailwind CSS for styling.</li>
+            <li><strong>Backend/Database:</strong> Firebase (authentication, Firestore/Realtime DB, storage as needed).</li>
+            <li><strong>Restrictions:</strong> No AI tools. Only allowed extra libraries: <code>moment()</code> and <code>react-calendar</code>.</li>
+          </ul>
+
+          <h3 style="margin-top:8px">Deliverables</h3>
+          <ul class="deliverables">
+            <li>Working web application implementing required features.</li>
+            <li>Documentation / README with setup instructions, features, and tech-stack notes.</li>
+            <li>Optional: demo video or hosted link (if available).</li>
+          </ul>
+
+        </article>
+
+        <article class="card" style="margin-top:14px">
+          <div class="section-title"><h2>Evaluation Criteria</h2><div class="muted-small">Clarity, functionality, and code quality</div></div>
+          <ul>
+            <li><strong>Functionality (40%):</strong> All required features work (signup, quizzes, grading, attendance).</li>
+            <li><strong>Code Quality &amp; Architecture (25%):</strong> Clean, modular code using Next.js best practices and Redux for state management.</li>
+            <li><strong>UI/UX &amp; Styling (15%):</strong> Responsive, accessible, and well-styled using Tailwind.</li>
+            <li><strong>Documentation (10%):</strong> Clear README with setup and usage instructions.</li>
+            <li><strong>Extra (10%):</strong> Bonus for tests, CI, or additional useful features (notifications, export reports, etc.).</li>
+          </ul>
+        </article>
+
+      </section>
+
+      <aside>
+        <div class="card">
+          <h2>Tech Stack</h2>
+          <div class="tech-list" style="margin-top:10px">
+            <div class="tag">Next.js</div>
+            <div class="tag">Redux</div>
+            <div class="tag">Firebase</div>
+            <div class="tag">Tailwind CSS</div>
+            <div class="tag">moment()</div>
+            <div class="tag">react-calendar</div>
+          </div>
+
+          <hr style="border:none;height:1px;background:rgba(0,0,0,0.05);margin:14px 0">
+
+          <div class="deadline">
+            <div>
+              <div style="font-size:13px;color:var(--muted)">Deadline</div>
+              <div style="font-size:15px;margin-top:6px"><strong>1 Week</strong> (from issuance date)</div>
+            </div>
+          </div>
+
+          <hr style="border:none;height:1px;background:rgba(0,0,0,0.05);margin:14px 0">
+
+          <h3 style="margin-bottom:6px">Submission</h3>
+          <ul>
+            <li>Upload project repository link (GitHub/GitLab).</li>
+            <li>Include README and any setup scripts.</li>
+            <li>Attach screenshots or demo link if hosted.</li>
+          </ul>
+
+          <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+            <a class="btn" href="#">Mark as Assigned</a>
+            <div class="muted-small">Assigned Developer: <strong>Abdul-Moiz</strong></div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <h3>Notes</h3>
+          <ul>
+            <li>Focus on robust authentication and role-based access control.</li>
+            <li>Keep UI simple and intuitive; prioritize mobile responsiveness.</li>
+            <li>Do not use libraries beyond the allowed list (except Tailwind &amp; Redux packages).</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <div class="muted-small">Good luck — build something you're proud of.</div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <div class="muted-small">Issued on: <strong>02 Oct 2025</strong></div>
+        <div class="muted-small">Deadline: <strong>17 Oct 2025</strong></div>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>

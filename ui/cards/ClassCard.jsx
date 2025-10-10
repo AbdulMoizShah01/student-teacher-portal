@@ -5,9 +5,11 @@ import { IoAdd } from "react-icons/io5";
 import { useCourses } from "@/hooks/useCourses";
 import { createRoleBasedUrl } from "@/utils";
 import { roleBasedUrl } from "@/config";
+import { MdOutlineDeleteForever } from "react-icons/md";
+import { FiEdit } from "react-icons/fi";
 
 const ClassCard = () => {
-  const { classes } = useClasses();
+  const { classes,removeClass } = useClasses();
   const { courses } = useCourses();
   const router = useRouter();
 
@@ -93,11 +95,11 @@ const ClassCard = () => {
                   Active
                 </span>
                 <div className="flex gap-2">
-                  <button  className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200 text-sm font-semibold">
-                    Manage
+                  <button  className="bg-red-700 text-white px-4 py-2 rounded-lg hover:bg-red-900 hover:cursor-pointer transition-colors duration-200 text-sm font-semibold">
+                    <MdOutlineDeleteForever size={23}/>
                   </button>
-                  <button className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-200 text-sm font-semibold">
-                    Edit
+                  <button className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 hover:cursor-pointer transition-colors duration-200 text-sm font-semibold">
+                    <FiEdit size={20}/>
                   </button>
                 </div>
               </div>

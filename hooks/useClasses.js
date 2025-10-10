@@ -23,7 +23,7 @@ export const useClasses = () => {
       dispatch(setClasses(updatedClasses));
       await Promise.all(
         classObj?.courses?.map(async (courseId) => {
-          await addToArrayField("courses", _id, "classIds", classObj?._id);
+          await addToArrayField("courses", courseId, "classIds", classObj?._id);
         })
       );
 
@@ -58,27 +58,17 @@ export const useClasses = () => {
     }
   };
 
-  const deleteClass = async (id) => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const filtered = classes.filter((cls) => cls._id !== id);
-      await saveData("classes", null, id, "delete");
-      dispatch(setClasses(filtered));
-    } catch (err) {
-      console.error("Error deleting class:", err);
-      setError(err);
-    } finally {
-      setLoading(false);
-    }
+  const removeClass = async (classToRemove, index) => {
+    await deleteData("classes", classToRemove);
+    let array = [...classes]?.filter((c) => c?._id !== classToRemove?._id);
+    dispatch(setClasses(array));
   };
 
   return {
     classes,
     addClass,
     updateClass,
-    deleteClass,
+    removeClass,
     loading,
     error,
   };

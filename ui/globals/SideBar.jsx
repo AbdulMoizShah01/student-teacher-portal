@@ -3,17 +3,32 @@ import Image from "next/image";
 import React, { useState } from "react";
 import logo from "../../public/logo.png";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { IoMdExit } from "react-icons/io";
+import { logOut } from "@/utils";
+import { setActiveUser } from "@/redux/actions";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 const SideBar = ({ links, role }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const pathName = usePathname();
+  const activeUser=useSelector((s)=>s?.activeUser,shallowEqual);
+  const router=useRouter();
+  const dispatch=useDispatch();
   console.log("pathname......", pathName);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
     setIsMobile(true);
+  };
+
+    const handleLogout = () => {
+    if (activeUser) {
+      logOut();
+      dispatch(setActiveUser(null));
+      router.push("/");
+    }
   };
 
   const closeSidebar = () => {
@@ -88,7 +103,7 @@ const SideBar = ({ links, role }) => {
           <div className="flex-1 p-6">
             <div className="mb-8 p-4 bg-white/5 rounded-xl border border-white/10">
               <p className="text-white/80 text-sm font-medium">Logged in as</p>
-              <p className="text-white text-lg font-bold capitalize bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <p className="text-lg font-bold capitalize bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                 {role}
               </p>
             </div>
@@ -127,8 +142,11 @@ const SideBar = ({ links, role }) => {
                 </Link>
               ))}
             </nav>
+            
           </div>
+            <div className="w-full text-white items-center"><button className="flex justify-evenly border-t-2 w-full items-center font-semibold text-2xl py-6 cursor-pointer" onClick={handleLogout}>Logout<IoMdExit size={24}/></button> </div>
         </div>
+        
       </div>
 
       {isOpen && isMobile && (

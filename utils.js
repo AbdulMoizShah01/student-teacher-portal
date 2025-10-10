@@ -16,6 +16,9 @@ export const getAllOfCollection = async (collectionName) => {
     });
   });
 };
+
+
+
 export const getDocumentById = async (collection, id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -51,7 +54,10 @@ export const saveData = async (collection, obj) => {
   });
 };
 
+export const deleteData = async (collectionName, obj) => {
+    return await Firestore.collection(collectionName).doc(obj._id).delete();
 
+}
 
 /**
  * Adds a string or object to an array field of a Firestore document.
@@ -98,3 +104,6 @@ export const getItemsbyKey= (array,comparisionArray,key="_id") =>{
 return items??[]
 }
 
+export const logOut=async()=>{
+   return await  firebaseSDK.auth.signOut();
+}

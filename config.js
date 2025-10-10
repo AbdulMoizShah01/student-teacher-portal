@@ -16,11 +16,10 @@ export const teacherRoutes=[
 
     
 export const studentRoutes=[ 
-    {title:"Classes", path:"/classes"},
-    {title:"Courses", path:"/courses"},
-    {title:"Quizzes", path:"/quizzes"},
-    {title:"Submissions", path:"/submissions"},
-    {title:"Users", path:"/users"}];
+    {title:"Class", path:"/class"},
+    {title:"Quizzes", path:"/quizzs"},
+    {title:"Attendance", path:"/attendance"},
+  ];
 
  export const roleBasedUrl=(url)=>{
     const _window=typeof window!=="undefined"?window:null;

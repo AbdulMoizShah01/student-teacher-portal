@@ -1,8 +1,11 @@
-import React from 'react'
 
+import React from 'react'
+import QuizCard from "../../../ui/cards/QuizCard"
 const page = () => {
   return (
-    <div>Quizzes</div>
+    <main>
+        <QuizCard/>
+    </main>
   )
 }
 

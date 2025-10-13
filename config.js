@@ -22,6 +22,7 @@ export const studentRoutes=[
     {title:"Submissions", path:"/submissions"}
   ];
 
+
  export const roleBasedUrl=(url)=>{
     const _window=typeof window!=="undefined"?window:null;
     const location=_window.location.toString();

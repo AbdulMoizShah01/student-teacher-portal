@@ -24,18 +24,18 @@ const ViewQuiz = () => {
       <div className="space-y-6">
         {quiz.questions?.map((q, index) => (
           <div
-            key={q._id || index}
+            key={q?._id || index}
             className="p-5 border border-gray-200 rounded-xl bg-gray-50 shadow-sm"
           >
             <h2 className="font-semibold text-gray-800 mb-2">
-              {index + 1}. {q.question}
+              {index + 1}. {q?.question}
             </h2>
             <ul className="space-y-2">
-              {q.options.map((opt, i) => (
+              {q?.options?.map?.((opt, i) => (
                 <li
                   key={i}
                   className={`px-4 py-2 rounded-lg border ${
-                    q.correctOption === i
+                    q?.correctOption === i
                       ? "bg-green-100 border-green-400 text-green-800"
                       : "bg-white border-gray-200 text-gray-700"
                   }`}

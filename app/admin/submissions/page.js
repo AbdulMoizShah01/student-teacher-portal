@@ -1,8 +1,11 @@
+import StudentSubmissions from '@/ui/page-sections/StudentSubmssions'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>Submissions</div>
+    <main>
+      <StudentSubmissions/>
+    </main>
   )
 }
 

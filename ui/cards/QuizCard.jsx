@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useQuizzes } from "@/hooks/useQuizzes";
 import { Loader2, FileQuestion } from "lucide-react";
+import { roleBasedUrl } from "@/config";
 
 const TeacherQuizList = () => {
   const router = useRouter();
@@ -66,14 +67,14 @@ const TeacherQuizList = () => {
           {/* Actions */}
           <div className="px-5 pb-5 flex gap-3 mt-auto">
             <button
-              onClick={() => router.push(`/teacher/quizzes/${quiz._id}`)}
+              onClick={() => router.push(roleBasedUrl(`/quizzes/${quiz?._id}`))}
               className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2 rounded-lg font-medium text-sm hover:scale-[1.02] active:scale-95 transition-all duration-200 shadow-md"
             >
               View Quiz
             </button>
 
             <button
-              onClick={() => router.push(`/teacher/submissions/${quiz._id}`)}
+              onClick={() => router.push(`/submissions/${quiz._id}`)}
               className="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg font-medium text-sm hover:bg-gray-50 transition-all duration-200"
             >
               Submissions

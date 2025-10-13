@@ -14,13 +14,13 @@ const QuizForm = () => {
   const { classes } = useClasses();
   const { addQuiz } = useQuizzes();
 
-  // ✅ Correctly get current user from Redux
+
   const currentUser = useSelector((state) => state?.activeUser, shallowEqual);
 
   const [quizObj, setQuizObj] = useState({
     title: "",
     classId: "",
-    teacherId: "", // fixed spelling
+    teacherId: "",
     questions: [],
   });
 
@@ -33,7 +33,7 @@ const QuizForm = () => {
     setQuizObj((prev) => ({
       ...prev,
       classId: id,
-      teacherId: currentUser?._id || "", // ✅ set teacherId from current user
+      teacherId: currentUser?._id || "",
     }));
     setClassSelectionOpen(false);
     setShowQuizForm(true);
@@ -70,7 +70,7 @@ const QuizForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const finalQuiz = { ...quizObj, teacherId: currentUser?._id || "" }; // ✅ ensure teacherId is set
+      const finalQuiz = { ...quizObj, teacherId: currentUser?._id || "" };
       await addQuiz(finalQuiz);
       toast.success("Quiz added successfully 🎉", { theme: "colored" });
       router.back();

@@ -3,11 +3,14 @@ import firebaseSDK from "@/firebase/firebase.config";
 import LoginForm from "@/ui/forms/LoginForm";
 import SignupForm from "@/ui/forms/SignupForm";
 import { createUniqueId, saveData } from "@/utils";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
 const page = () => {
     const router=useRouter();
+    const searchParams=useSearchParams();
+    const role=searchParams?.get("role");
+
   const handleSignup = async (obj) => {
     let userObj = { ...obj };
     try {
@@ -32,7 +35,7 @@ const page = () => {
     }
   };
 
-  return <SignupForm onSubmit={handleSignup} />;
+  return <SignupForm role={role} onSubmit={handleSignup} />;
 };
 
 export default page;

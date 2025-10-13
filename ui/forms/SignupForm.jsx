@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputField from "../inputs/NormalInputs";
 import moment from "moment";
 
-const SignupForm = ({ onSubmit }) => {
+const SignupForm = ({ onSubmit,role }) => {
     const createdAt =Date.parse(new Date());
 
-  const [form, setForm] = useState({ email: "", name:"", role:"" , password: "" ,status:"pending", createdAt:createdAt});
+  const [form, setForm] = useState({ email: "", name:"", role:role??"" , password: "" ,status:"pending", createdAt:createdAt});
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,6 +18,10 @@ const SignupForm = ({ onSubmit }) => {
       onSubmit(form);
     }
   };
+
+useEffect(()=>{
+  setForm((prev)=>({...prev,role:role??""}))
+},[role])
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-50">

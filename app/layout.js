@@ -1,7 +1,6 @@
 import RootLevelOps from "@/rootLevelOps";
 import "./globals.css";
 import NextReduxWrapper from "@/redux/NextReduxWrapper";
-import { WaitListModal } from "@/ui/modals/WaitListModal";
 
 export const metadata = {
   title: "Create Next App",

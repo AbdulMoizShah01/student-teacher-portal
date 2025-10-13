@@ -69,7 +69,7 @@ const Header = () => {
                 <ul>
                   <li className="border-b border-gray-100 last:border-b-0">
                     <Link
-                      href="/auth"
+                      href={`/auth/signUp?role=teacher`}
                       className="flex px-4 py-3 text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150"
                       onClick={closeDropdown}
                     >
@@ -79,7 +79,7 @@ const Header = () => {
                   </li>
                   <li className="border-b border-gray-100 last:border-b-0">
                     <Link
-                      href="/auth"
+                     href={`/auth/signUp?role=student`}
                       className="flex px-4 py-3 text-sm font-medium text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors duration-150"
                       onClick={closeDropdown}
                     >

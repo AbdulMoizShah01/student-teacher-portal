@@ -1,11 +1,10 @@
-
-import StudentQuizzes from '@/ui/page-sections/StudentQuizzes'
+import ViewQuiz from '@/ui/page-sections/ViewQuiz'
 import React from 'react'
 
 const page = () => {
   return (
     <main>
-      <StudentQuizzes/>
+        <ViewQuiz/>
     </main>
   )
 }

@@ -15,17 +15,24 @@ export const useClasses = () => {
     try {
       setLoading(true);
       setError(null);
-
-      const newClass = { ...classObj, _id: createUniqueId() };
+      const newClassId=createUniqueId()
+      const newClass = { ...classObj, _id: newClassId };
       await saveData("classes", newClass);
 
       const updatedClasses = [...classes, newClass];
       dispatch(setClasses(updatedClasses));
       await Promise.all(
-        classObj?.courses?.map(async (courseId) => {
-          await addToArrayField("courses", courseId, "classIds", classObj?._id);
-        })
-      );
+  (classObj?.courses ?? []).map((courseId) =>
+    addToArrayField("courses", courseId, "classIds", newClassId)
+  )
+);
+
+await Promise.all(
+  (classObj?.students ?? []).map((userId) =>
+    addToArrayField("users", userId, "classIds", newClassId)
+  )
+);
+
 
       return newClass;
     } catch (err) {

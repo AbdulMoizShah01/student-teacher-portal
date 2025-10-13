@@ -17,7 +17,7 @@ useEffect(()=>{
 },[options])
 
   useEffect(() => {
-    if (items?.length > 0)
+    if (items?.length > 0&&options?.length==0)
       setOptions(items?.map((i) => {
      let isInArray=value?.find((item)=>i?._id==item?._id||i===item);
      

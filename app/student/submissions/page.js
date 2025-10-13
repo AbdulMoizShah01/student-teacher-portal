@@ -1,11 +1,10 @@
-
-import StudentQuizzes from '@/ui/page-sections/StudentQuizzes'
+import StudentSubmissions from '@/ui/page-sections/StudentSubmssions'
 import React from 'react'
 
 const page = () => {
   return (
     <main>
-      <StudentQuizzes/>
+        <StudentSubmissions/>
     </main>
   )
 }

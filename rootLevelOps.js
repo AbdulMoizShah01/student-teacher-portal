@@ -32,7 +32,7 @@ const dispatch=useDispatch();
     firebaseSDK.auth.onAuthStateChanged (async(r)=>{
         let user=await getCurrentUserProfile(r?.uid);
         if(user )
-            getInitialStates(dispatch, user?.role);
+            getInitialStates(dispatch, user?.role,user);
         
     })
   }, []);

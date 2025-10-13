@@ -12,13 +12,14 @@ export const teacherRoutes=[
     {title:"Courses", path:"/courses"},
     {title:"Quizzes", path:"/quizzes"},
     {title:"Submissions", path:"/submissions"},
-    {title:"Users", path:"/users"}];
+    {title:"Attendance", path:"/attendance"}];
 
     
 export const studentRoutes=[ 
     {title:"Class", path:"/class"},
-    {title:"Quizzes", path:"/quizzs"},
+    {title:"Quizzes", path:"/quizzes"},
     {title:"Attendance", path:"/attendance"},
+    {title:"Submissions", path:"/submissions"}
   ];
 
  export const roleBasedUrl=(url)=>{

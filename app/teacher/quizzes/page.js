@@ -1,8 +1,13 @@
+import TeacherQuizList from '@/ui/cards/QuizCard'
+import QuizForm from '@/ui/forms/QuizForm'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>page</div>
+   <main>
+    <TeacherQuizList/>
+    <QuizForm/>
+   </main>
   )
 }
 

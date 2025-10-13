@@ -1,4 +1,5 @@
 import firebaseSDK from "./firebase/firebase.config";
+import { arrayUnion } from "firebase/firestore";
 
 const Firestore = firebaseSDK.firestore;
 
@@ -16,8 +17,6 @@ export const getAllOfCollection = async (collectionName) => {
     });
   });
 };
-
-
 
 export const getDocumentById = async (collection, id) => {
   return new Promise(async (resolve, reject) => {
@@ -55,9 +54,8 @@ export const saveData = async (collection, obj) => {
 };
 
 export const deleteData = async (collectionName, obj) => {
-    return await Firestore.collection(collectionName).doc(obj._id).delete();
-
-}
+  return await Firestore.collection(collectionName).doc(obj._id).delete();
+};
 
 /**
  * Adds a string or object to an array field of a Firestore document.
@@ -73,7 +71,7 @@ export const addToArrayField = async (collection, docId, key, value) => {
       await Firestore.collection(collection)
         .doc(docId)
         .update({
-          [key]: firebase.firestore.FieldValue.arrayUnion(value),
+          [key]: arrayUnion(value),
         });
 
       console.log(`✅ Added to ${key} in ${collection}/${docId}:`, value);
@@ -85,25 +83,35 @@ export const addToArrayField = async (collection, docId, key, value) => {
   });
 };
 
+export const getDocsByKeyValue = async (collection, key, value) => {
+  return await new Promise(async (res, rej) => {
+    try {
+      let collectionData = await Firestore.collection(collection)
+        .where(key, "==", value)
+        .get();
+      let docs = collectionData?.docs?.map((i) => i?.data());
+      res(docs);
+    } catch (e) {
+      rej(e);
+    }
+  });
+};
+
 /*------------------Get Items by Mapping Items of one array to another----------------------*/
 
-
 /**maps the string ids to objects from comparisionArray with key(_id) of id */
-export const getItemsbyKey= (array,comparisionArray,key="_id") =>{
-
-    let items=array?.map((string)=>{
-        let obj=comparisionArray?.find((cO)=>{
-           
-            return cO?.[key]===string
-        
-        })
-      
-        return obj??{}
+export const getItemsbyKey = (array, comparisionArray, key = "_id") => {
+  let items = array?.map((string) => {
+    let obj = comparisionArray?.find((cO) => {
+      return cO?.[key] === string;
     });
-    
-return items??[]
-}
 
-export const logOut=async()=>{
-   return await  firebaseSDK.auth.signOut();
-}
+    return obj ?? {};
+  });
+
+  return items ?? [];
+};
+
+export const logOut = async () => {
+  return await firebaseSDK.auth.signOut();
+};

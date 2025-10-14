@@ -6,7 +6,7 @@ import { useQuizzes } from "@/hooks/useQuizzes";
 import { shallowEqual, useSelector } from "react-redux";
 
 const StudentSubmissions = () => {
-  const { submissions, fetchSubmissions } = useSubmissions();
+  const { submissions} = useSubmissions();
   const currentUser=useSelector((s)=>s?.activeUser, shallowEqual);
   const { quizzes } = useQuizzes();
 
@@ -26,7 +26,7 @@ const StudentSubmissions = () => {
         <p>No quizzes submitted yet.</p>
       ) : (
         studentSubs.map((s) => {
-          const quiz = quizzes.find((q) => q?._id === s.quizId);
+          const quiz = quizzes?.find((q) => q?._id === s?.quizId);
           return (
             <div
               key={s?._id}
@@ -35,7 +35,7 @@ const StudentSubmissions = () => {
               <h3 className="font-semibold text-lg">{quiz?.title}</h3>
               <p className="mt-1 text-gray-600">
                 Status:{" "}
-                {s.evaluated ? (
+                {s?.evaluated ? (
                   <span className="text-green-600 font-semibold">
                     Evaluated
                   </span>
@@ -45,7 +45,7 @@ const StudentSubmissions = () => {
               </p>
               {s.evaluated && (
                 <p className="mt-2 font-semibold text-blue-600">
-                  Marks: {s.marks}
+                  Marks: {s?.marks}
                 </p>
               )}
             </div>

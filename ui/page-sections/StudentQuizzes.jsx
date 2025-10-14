@@ -61,7 +61,7 @@ const StudentQuizzes = () => {
                   )}
                   {quiz.teacherName && (
                     <p className="text-sm text-gray-500">
-                      <strong>Teacher:</strong> {quiz.teacherName}
+                      <strong>Teacher:</strong> {quiz?.teacherName}
                     </p>
                   )}
                 </div>
@@ -70,7 +70,7 @@ const StudentQuizzes = () => {
               <div className="mt-6">
                 <button
                   onClick={() =>
-                    router.push(`/student/quizzes/attempt/${quiz._id || quiz.id}`)
+                    router.push(`/student/quizzes/attempt/${quiz?._id || quiz?.id}`)
                   }
                   className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3 rounded-xl hover:scale-105 transition-transform duration-300 shadow-md"
                 >

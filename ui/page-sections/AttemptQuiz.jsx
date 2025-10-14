@@ -5,7 +5,6 @@ import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useQuizzes } from "@/hooks/useQuizzes";
 import { useSubmissions } from "@/hooks/useSubmissions";
-import { useUsers } from "@/hooks/useUsers";
 import NormalInputs from "../inputs/NormalInputs"
 import { shallowEqual, useSelector } from "react-redux";
 
@@ -15,7 +14,6 @@ const AttemptQuiz = (onSubmit) => {
   const { quizzes, loading } = useQuizzes();
   const { addSubmission } = useSubmissions();
   const currentUser  = useSelector((s)=>s?.activeUser,shallowEqual);
-  console.log("current user,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,", currentUser)
 
   const [quiz, setQuiz] = useState(null);
   const [answers, setAnswers] = useState([]);
@@ -76,7 +74,7 @@ const AttemptQuiz = (onSubmit) => {
               {i + 1}?. {q.question}
             </p>
 
-            {q.type === "qa" && (
+            {q?.type === "qa" && (
               <NormalInputs
                 placeholder="Type your answer"
                 value={answers[i]?.answer}
@@ -84,8 +82,8 @@ const AttemptQuiz = (onSubmit) => {
               />
             )}
 
-            {(q.type === "mcq" || q.type === "truefalse") &&
-              q.options?.map((opt, idx) => (
+            {(q?.type === "mcq" || q?.type === "truefalse") &&
+              q?.options?.map((opt, idx) => (
                 <label
                   key={idx}
                   className="flex items-center gap-2 cursor-pointer"

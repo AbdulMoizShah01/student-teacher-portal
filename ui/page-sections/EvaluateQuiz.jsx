@@ -27,29 +27,29 @@ const EvaluateSubmissions = () => {
         <p>No submissions found.</p>
       ) : (
         submissions.map((sub) => {
-          const quiz = quizzes.find((q) => q._id === sub.quizId);
+          const quiz = quizzes.find((q) => q?._id === sub?.quizId);
           return (
             <div
-              key={sub._id}
+              key={sub?._id}
               className="border border-gray-300 rounded-xl p-4 mb-4 bg-white shadow"
             >
               <h3 className="font-semibold text-lg">
-                {sub.studentName} - {quiz?.title}
+                {sub?.studentName} - {quiz?.title}
               </h3>
 
               <button
                 className="text-blue-600 mt-2"
-                onClick={() => setSelected(selected === sub._id ? null : sub._id)}
+                onClick={() => setSelected(selected === sub?._id ? null : sub?._id)}
               >
-                {selected === sub._id ? "Hide Details" : "View Details"}
+                {selected === sub?._id ? "Hide Details" : "View Details"}
               </button>
 
-              {selected === sub._id && (
+              {selected === sub?._id && (
                 <div className="mt-3 space-y-4">
-                  {sub.answers.map((ans, i) => (
+                  {sub?.answers.map((ans, i) => (
                     <div key={i} className="bg-gray-50 rounded p-3">
                       <p className="font-semibold">
-                        {i + 1}. {ans.question}
+                        {i + 1}. {ans?.question}
                       </p>
                       <p>
                         <span className="text-gray-600">Student Answer:</span>{" "}
@@ -71,7 +71,7 @@ const EvaluateSubmissions = () => {
                       setValue={setMarks}
                     />
                     <button
-                      onClick={() => handleEvaluate(sub._id)}
+                      onClick={() => handleEvaluate(sub?._id)}
                       className="bg-blue-600 text-white rounded-lg px-4 py-2 hover:bg-blue-700"
                     >
                       Save

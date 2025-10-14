@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { setClasses } from "@/redux/actions";
-import { addToArrayField, createUniqueId, saveData } from "@/utils";
+import { addToArrayField, createUniqueId, saveData, deleteData } from "@/utils";
 
 export const useClasses = () => {
   const classes = useSelector((state) => state?.classes || [], shallowEqual);

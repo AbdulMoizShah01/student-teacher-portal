@@ -1,7 +1,7 @@
 "use client"
 
 import { setCourses } from "@/redux/actions";
-import { createUniqueId } from "@/utils";
+import { createUniqueId, saveData, deleteData } from "@/utils";
 import { shallowEqual, useDispatch, useSelector } from "react-redux"
 
 export const useCourses = () => {
@@ -25,5 +25,22 @@ const addCourse =async (courseObj)=>{
 
 }
 
-  return {courses,addCourse};
+const updateCourse = async(updatedObj)=>{
+    try{
+        await saveData("courses", updatedObj);
+        const updated = courses.map(c=> c?._id===updatedObj?._id ? updatedObj : c);
+        dispatch(setCourses(updated));
+        return updatedObj;
+    }catch(e){
+        return e;
+    }
+}
+
+const removeCourse = async(courseToRemove)=>{
+    await deleteData("courses", courseToRemove);
+    const filtered = courses?.filter(c=>c?._id !== courseToRemove?._id);
+    dispatch(setCourses(filtered));
+}
+
+  return {courses,addCourse,updateCourse,removeCourse};
 }

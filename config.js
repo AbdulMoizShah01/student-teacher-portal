@@ -3,7 +3,6 @@ export const adminRoutes=[
     {title:"Classes", path:"/classes"},
     {title:"Courses", path:"/courses"},
     {title:"Quizzes", path:"/quizzes"},
-    {title:"Submissions", path:"/submissions"},
     {title:"Users", path:"/users"}];
 
 

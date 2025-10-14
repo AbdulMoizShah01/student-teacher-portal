@@ -5,10 +5,14 @@ import { useRouter } from "next/navigation";
 import { FiEdit } from "react-icons/fi";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { useCourses } from "@/hooks/useCourses";
+import { Loader2 } from "lucide-react";
 
 const CourseCard = () => {
-const {courses}=useCourses();
+const {courses, removeCourse}=useCourses();
+const activeUser = useSelector((s)=>s?.activeUser, shallowEqual)
   const router = useRouter();
+
+  // Render regardless of activeUser to avoid indefinite loader if profile fetch fails
 
   return (
     <div className="w-full p-6">
@@ -36,7 +40,7 @@ const {courses}=useCourses();
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-bold text-gray-800 truncate">
-                  {course?.title || "Unnamed Course"}
+                  {course?.name || course?.title || "Unnamed Course"}
                 </h3>
                 <span className="bg-blue-100 text-blue-600 text-xs font-semibold px-2 py-1 rounded-full">
                   ID: {course?._id?.slice(0, 8)}...
@@ -59,7 +63,7 @@ const {courses}=useCourses();
                     />
                   </svg>
                   <span className="text-sm">
-                    Teacher: {course?.teacher || "Not assigned"}
+                    Teachers: {Array.isArray(course?.teachers) ? course.teachers.length : 0}
                   </span>
                 </div>
 
@@ -112,10 +116,10 @@ const {courses}=useCourses();
                   Active
                 </span>
                 <div className="flex gap-2">
-                  <button className="bg-red-700 text-white px-4 py-2 rounded-lg hover:bg-red-900 hover:cursor-pointer transition-colors duration-200 text-sm font-semibold">
+                  <button onClick={()=>removeCourse(course)} className="bg-red-700 text-white px-4 py-2 rounded-lg hover:bg-red-900 hover:cursor-pointer transition-colors duration-200 text-sm font-semibold">
                     <MdOutlineDeleteForever size={23} />
                   </button>
-                  <button className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 hover:cursor-pointer transition-colors duration-200 text-sm font-semibold">
+                  <button onClick={()=>router.push(`/admin/courses/edit?id=${course?._id}`)} className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 hover:cursor-pointer transition-colors duration-200 text-sm font-semibold">
                     <FiEdit size={20} />
                   </button>
                 </div>

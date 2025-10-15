@@ -1,18 +1,85 @@
 @import "tailwindcss";
 
-
-th,tr,td{
-    text-align: left;
+th,
+tr,
+td {
+  text-align: left;
 }
 
-th,td{
- padding: 0.3rem;
+th,
+td {
+  padding: 0.3rem;
 }
 
-tr{
-    border-bottom: #8a8989 solid 2px;
+tr {
+  border-bottom: #8a8989 solid 2px;
 }
-.scrollbar-hidden::-webkit-scrollbar{
-    appearance: none !important;
-    
+.scrollbar-hidden::-webkit-scrollbar {
+  appearance: none !important;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.6);
+  }
+}
+
+@keyframes slideInFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 3s ease-in-out infinite;
+}
+
+.animate-slide-in-top {
+  animation: slideInFromTop 0.8s ease-out;
+}
+
+.animate-slide-in-bottom {
+  animation: slideInFromBottom 0.8s ease-out 0.3s both;
+}
+
+.animate-stagger-1 {
+  animation-delay: 0.1s;
+}
+
+.animate-stagger-2 {
+  animation-delay: 0.2s;
 }

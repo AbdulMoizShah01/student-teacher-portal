@@ -12,7 +12,7 @@ export const useQuizzes = () => {
     try {
       const newQuiz = { ...quizObj, _id: createUniqueId() };
       await saveData("quizzes", newQuiz);
-      dispatch(setQuizzes([...quizzes, newQuiz]));
+      dispatch(setQuizzes([...(quizzes || []), newQuiz]));
       return true;
     } catch (error) {
       console.error("Error adding quiz:", error);

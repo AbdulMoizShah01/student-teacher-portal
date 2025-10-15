@@ -2,7 +2,6 @@
 import LoginForm from "@/ui/forms/LoginForm";
 import firebaseSDK from "@/firebase/firebase.config";
 import { useRouter } from "next/navigation";
-import { Suspense } from "react";
 
 export default function Page() {
   const router = useRouter();
@@ -28,8 +27,7 @@ export default function Page() {
   };
 
   return (
-    <Suspense fallback={<div className="p-4 text-center">Loading home...</div>}>
   <LoginForm onSubmit={handleLogin} />
-  </Suspense>
+
   );
 }

@@ -1,24 +1,17 @@
-Perfect 👍 — let’s make it **GitHub-ready documentation** (formatted as a clean, professional `README.md`).
 
-Below is a complete Markdown file you can **copy directly into your repo’s root** as `README.md` — it’s written specifically for your **Student-Teacher Portal (Vercel-hosted)** app.
-
----
-
-```markdown
 # 🎓 Student-Teacher Portal
 
 A modern, web-based platform that bridges the gap between **students** and **teachers**, providing an easy and organized way to manage courses, classes, assignments, and submissions — all in one place.
 
 🌐 **Live App:** [Student-Teacher Portal on Vercel](https://vercel.com/abdulmoizshah01s-projects/student-teacher-portal/QFWrN4knrVJwiTwdjj28vDQr3wki)
 
----
+
 
 ## 🚀 Overview
 
 The **Student-Teacher Portal** allows teachers to create and manage classes and courses, while students can view, enroll, and interact through assignments and grades.  
 It offers an intuitive dashboard, real-time updates, and smooth workflows for academic management.
 
----
 
 ## 🧩 Key Features
 
@@ -41,7 +34,7 @@ It offers an intuitive dashboard, real-time updates, and smooth workflows for ac
 - Firebase backend integration for persistent data
 - Fully responsive and optimized for all devices
 
----
+
 
 ## 🏗️ Tech Stack
 
@@ -54,11 +47,11 @@ It offers an intuitive dashboard, real-time updates, and smooth workflows for ac
 | **Database** | Firebase Firestore | Cloud storage for structured data |
 | **Hosting** | [Vercel](https://vercel.com) | Continuous deployment and hosting |
 
----
+
 
 ## 📂 Project Structure
 
-```
+
 
 student-teacher-portal/
 │
@@ -76,46 +69,44 @@ student-teacher-portal/
 ├── package.json
 └── README.md
 
-````
 
----
 
 ## ⚙️ Installation & Setup
 
 ### 1️⃣ Clone the repository
-```bash
+
 git clone https://github.com/<your-username>/student-teacher-portal.git
 cd student-teacher-portal
-````
+
 
 ### 2️⃣ Install dependencies
 
-```bash
+
 npm install
 # or
 yarn install
-```
+
 
 ### 3️⃣ Configure environment variables
 
 Create a `.env.local` file in the project root and add:
 
-```bash
+
 NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
 NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_bucket
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
-```
+
 
 *(Get these from your Firebase project settings.)*
 
 ### 4️⃣ Run locally
 
-```bash
+
 npm run dev
-```
+
 
 Visit **[http://localhost:3000](http://localhost:3000)**
 
@@ -124,7 +115,7 @@ Visit **[http://localhost:3000](http://localhost:3000)**
 Push your code to GitHub and connect your repo to **Vercel**.
 Vercel will automatically build and deploy your app.
 
----
+
 
 ## 🔒 Authentication & Roles
 
@@ -135,7 +126,7 @@ Vercel will automatically build and deploy your app.
   * **Student** → can view and submit coursework.
 * Role-based UI and route protection.
 
----
+
 
 ## 🧠 Core Modules
 
@@ -146,7 +137,7 @@ Vercel will automatically build and deploy your app.
 | **utils.js**               | Firebase helper functions for saving, updating, and fetching data. |
 | **Redux actions/reducers** | Store state for users, classes, and courses.                       |
 
----
+
 
 ## 🗂️ Firestore Collections (Example)
 
@@ -158,7 +149,7 @@ Vercel will automatically build and deploy your app.
 | **assignments** | id, title, description, deadline, classId             |
 | **submissions** | id, assignmentId, studentId, fileUrl, grade, feedback |
 
----
+
 
 ## 🧾 API Endpoints (if applicable)
 
@@ -171,7 +162,7 @@ Vercel will automatically build and deploy your app.
 | `POST` | `/api/submissions`     | Submit assignment       |
 | `PUT`  | `/api/submissions/:id` | Grade a submission      |
 
----
+
 
 ## 🧰 Scripts
 
@@ -182,29 +173,28 @@ Vercel will automatically build and deploy your app.
 | `npm start`     | Run production server   |
 | `npm run lint`  | Lint the codebase       |
 
----
+
 
 ## 🧑‍💻 Contribution Guide
 
 1. **Fork** this repository
 2. **Create** your feature branch:
 
-   ```bash
    git checkout -b feature/awesome-feature
-   ```
+
 3. **Commit** your changes:
 
-   ```bash
+
    git commit -m "Add awesome feature"
-   ```
+
 4. **Push** to the branch:
 
-   ```bash
+
    git push origin feature/awesome-feature
-   ```
+
 5. Open a **Pull Request**
 
----
+
 
 ## 🔮 Future Improvements
 
@@ -214,13 +204,12 @@ Vercel will automatically build and deploy your app.
 * Dark mode support
 * Attendance tracking system
 
----
+
 
 ## 🧾 License
 
 This project is open source under the [MIT License](LICENSE).
 
----
 
 ## 👨‍💻 Author
 
@@ -228,14 +217,13 @@ This project is open source under the [MIT License](LICENSE).
 📧 [abdulmoizshah01@gmail.com](mailto:abdulmoizshah01@gmail.com)
 🔗 [Vercel Project Link](https://vercel.com/abdulmoizshah01s-projects/student-teacher-portal/QFWrN4knrVJwiTwdjj28vDQr3wki)
 
----
+
 
 > *Built with ❤️ using Next.js, Firebase, and Vercel.*
 
-```
 
----
+
 
 Would you like me to **customize this README** based on your actual **Redux actions, Firestore utils**, and **hooks (`useCourses`, `useClasses`, etc.)** so it reflects your exact code?  
 If yes, share your `src/hooks/` and `src/redux/` structure (or snippets), and I’ll make a detailed version.
-```
+

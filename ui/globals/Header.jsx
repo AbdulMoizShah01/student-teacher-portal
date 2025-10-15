@@ -114,7 +114,7 @@ const Header = () => {
                   {/* Teacher Option */}
                   <li className="border-b border-gray-100/50 last:border-b-0 group">
                     <Link
-                      href={`/auth/signUp?role=teacher`}
+                      href={`/auth?role=teacher`}
                       className="flex items-center px-4 py-3 text-sm font-medium text-gray-700 hover:bg-blue-50/80 hover:text-blue-600 transition-all duration-200 group-hover:translate-x-1"
                       onClick={closeDropdown}
                     >
@@ -130,7 +130,7 @@ const Header = () => {
                   {/* Student Option */}
                   <li className="border-b border-gray-100/50 last:border-b-0 group">
                     <Link
-                      href={`/auth/signUp?role=student`}
+                      href={`/auth?role=student`}
                       className="flex items-center px-4 py-3 text-sm font-medium text-gray-700 hover:bg-green-50/80 hover:text-green-600 transition-all duration-200 group-hover:translate-x-1"
                       onClick={closeDropdown}
                     >
@@ -185,7 +185,7 @@ const Header = () => {
         <div className="absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-white/20 sm:hidden">
           <div className="px-4 py-2 space-y-1">
             <Link
-              href={`/auth/signUp?role=teacher`}
+              href={`/auth?role=teacher`}
               className="flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 rounded-lg transition-colors duration-200"
               onClick={closeDropdown}
             >
@@ -193,7 +193,7 @@ const Header = () => {
               <span className="font-semibold">Teacher Login</span>
             </Link>
             <Link
-              href={`/auth/signUp?role=student`}
+              href={`/auth?role=student`}
               className="flex items-center px-4 py-3 text-gray-700 hover:bg-green-50 rounded-lg transition-colors duration-200"
               onClick={closeDropdown}
             >

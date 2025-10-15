@@ -3,7 +3,7 @@ import firebaseSDK from "@/firebase/firebase.config";
 import SignupForm from "@/ui/forms/SignupForm";
 import { saveData } from "@/utils";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { Suspense } from "react";
+
 
 // ✅ This inner component uses useSearchParams safely
 const SignupPageInner = () => {
@@ -38,9 +38,8 @@ const SignupPageInner = () => {
 // ✅ This outer component is exported and only wraps Suspense
 const Page = () => {
   return (
-    <Suspense fallback={<div className="p-4 text-center">Loading...</div>}>
+  
       <SignupPageInner />
-    </Suspense>
   );
 };
 

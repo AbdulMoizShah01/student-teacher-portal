@@ -4,7 +4,7 @@ import LoginForm from "@/ui/forms/LoginForm";
 import SignupForm from "@/ui/forms/SignupForm";
 import { createUniqueId, saveData } from "@/utils";
 import { useRouter, useSearchParams } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 
 const page = () => {
     const router=useRouter();
@@ -35,7 +35,11 @@ const page = () => {
     }
   };
 
-  return <SignupForm role={role} onSubmit={handleSignup} />;
+  return (
+    <Suspense fallback={<div className="p-4 text-center">Loading...</div>}>
+  <SignupForm role={role} onSubmit={handleSignup} />;
+      </Suspense>
+  );
 };
 
 export default page;

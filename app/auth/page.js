@@ -18,9 +18,9 @@ export default function Page() {
 
     
 
-      if (data?.user?.role === "admin") router.push("/admin");
-      else if (data?.user?.role === "teacher") router.push("/teacher");
-      else router.push("/student");
+      if (data?.user?.role === "admin") router.push("/admin/classes");
+      else if (data?.user?.role === "teacher") router.push("/teacher/classes");
+      else router.push("/student/classes");
     } catch (err) {
       alert("Login failed: " + err.message);
     }

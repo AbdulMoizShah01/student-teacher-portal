@@ -155,15 +155,18 @@ const TeacherQuizList = () => {
                 }
               </p>
               
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => router.push(roleBasedUrl("/quizzes/add"))}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold px-8 py-4 rounded-2xl hover:from-blue-700 hover:to-purple-700 transform shadow-2xl hover:shadow-3xl transition-all duration-300 inline-flex items-center gap-3 text-lg"
-              >
-                <Plus className="w-5 h-5" />
-                Create Your First Quiz
-              </motion.button>
+              {/* Only show create button for non-admin users */}
+              {currentUser?.role !== "admin" && (
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => router.push(roleBasedUrl("/quizzes/add"))}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold px-8 py-4 rounded-2xl hover:from-blue-700 hover:to-purple-700 transform shadow-2xl hover:shadow-3xl transition-all duration-300 inline-flex items-center gap-3 text-lg"
+                >
+                  <Plus className="w-5 h-5" />
+                  Create Your First Quiz
+                </motion.button>
+              )}
             </div>
           </motion.div>
         </motion.div>
@@ -189,7 +192,9 @@ const TeacherQuizList = () => {
                 <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Quiz Management
                 </h1>
-                <p className="text-gray-600 mt-2 text-lg">Manage and track your assessments</p>
+                <p className="text-gray-600 mt-2 text-lg">
+                  {currentUser?.role === "admin" ? "View and manage all quizzes" : "Manage and track your assessments"}
+                </p>
               </div>
             </div>
             
@@ -218,18 +223,38 @@ const TeacherQuizList = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Admin-specific stats */}
+              {currentUser?.role === "admin" && (
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-lg min-w-[140px]">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                      <FiUsers className="text-green-600 text-lg" />
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold text-gray-800">
+                        {new Set(eligibleQuizzes.map(q => q?.teacherId)).size}
+                      </p>
+                      <p className="text-gray-600 text-sm">Teachers</p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => router.push(roleBasedUrl("/quizzes/add"))}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold px-6 py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 transform shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
-          >
-            <Plus className="w-5 h-5" />
-            Create New Quiz
-          </motion.button>
+          {/* Only show create button for non-admin users */}
+          {currentUser?.role !== "admin" && (
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => router.push(roleBasedUrl("/quizzes/add"))}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold px-6 py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 transform shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
+            >
+              <Plus className="w-5 h-5" />
+              Create New Quiz
+            </motion.button>
+          )}
         </div>
 
         {/* Quiz Groups */}
@@ -253,7 +278,7 @@ const TeacherQuizList = () => {
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
                     <FiBook className="text-white text-xl" />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <h2 className="text-2xl font-bold text-gray-800">
                       {cls?.name || "Unnamed Class"}
                     </h2>
@@ -261,6 +286,11 @@ const TeacherQuizList = () => {
                       {list.length} quiz{list.length !== 1 ? 'zes' : ''} available
                     </p>
                   </div>
+                  {currentUser?.role === "admin" && (
+                    <div className="text-sm text-gray-500 bg-white/80 px-3 py-1 rounded-full border">
+                      {list.filter(q => q?.teacherId).length} teacher{list.filter(q => q?.teacherId).length !== 1 ? 's' : ''}
+                    </div>
+                  )}
                 </div>
 
                 {/* Quiz Grid */}
@@ -286,6 +316,13 @@ const TeacherQuizList = () => {
                               <FiCalendar className="w-3 h-3" />
                               {quiz.createdAt ? new Date(quiz.createdAt).toLocaleDateString() : "—"}
                             </p>
+                            {/* Show teacher name for admin */}
+                            {currentUser?.role === "admin" && quiz?.teacherName && (
+                              <p className="text-gray-500 text-xs mt-1 flex items-center gap-1">
+                                <FiUsers className="w-3 h-3" />
+                                By {quiz.teacherName}
+                              </p>
+                            )}
                           </div>
                           <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg ml-2 flex-shrink-0">
                             <span className="text-white font-bold text-xs">
@@ -319,6 +356,7 @@ const TeacherQuizList = () => {
                             View
                           </motion.button>
                           
+                          {/* Edit button - only for teachers who own the quiz */}
                           {currentUser?.role === "teacher" && quiz?.teacherId === currentUser?._id && (
                             <motion.button
                               whileHover={{ scale: 1.05 }}
@@ -330,15 +368,17 @@ const TeacherQuizList = () => {
                             </motion.button>
                           )}
                           
+                          {/* Submissions button - visible to all */}
                           <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            onClick={() => router.push(roleBasedUrl(`/quizzes/submissions/${quiz._id}`))}
+                            onClick={() => router.push(roleBasedUrl(`/submissions`))}
                             className="w-10 h-10 bg-green-500 text-white rounded-lg font-medium text-sm hover:bg-green-600 transition-all duration-200 flex items-center justify-center"
                           >
                             <BarChart3 className="w-4 h-4" />
                           </motion.button>
 
+                          {/* Delete button - only for teachers who own the quiz */}
                           {currentUser?.role === "teacher" && quiz?.teacherId === currentUser?._id && (
                             <motion.button
                               whileHover={{ scale: 1.05 }}

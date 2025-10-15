@@ -83,3 +83,10 @@ tr {
 .animate-stagger-2 {
   animation-delay: 0.2s;
 }
+
+
+
+
+.invisible-scrollbar::-webkit-scrollbar {
+  display: none;
+}

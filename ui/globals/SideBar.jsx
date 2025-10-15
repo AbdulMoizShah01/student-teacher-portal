@@ -322,7 +322,7 @@ const SideBar = ({ links, role }) => {
           </AnimatePresence>
 
           {/* Navigation Links */}
-          <div className="flex-1 p-2 overflow-y-auto">
+          <div className="flex-1 p-2 overflow-y-auto invisible-scrollbar">
             <nav className="space-y-1">
               {links?.map((link, index) => {
                 const isActive = pathName === `/${role}${link?.path}`;

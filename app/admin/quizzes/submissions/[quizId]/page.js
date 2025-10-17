@@ -1,3 +1,4 @@
+"use client"
 import ViewQuizSubmissions from '@/ui/page-sections/ViewQuizSubmissions'
 import React from 'react'
 

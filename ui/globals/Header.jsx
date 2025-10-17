@@ -7,11 +7,21 @@ import { useRouter } from "next/navigation";
 import { PiStudentBold } from "react-icons/pi";
 import { RiAdminLine } from "react-icons/ri";
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
+import { motion, AnimatePresence } from "framer-motion";
+import { 
+  FiUser, 
+  FiLogIn, 
+  FiChevronDown,
+  FiHome,
+  FiBook,
+  FiAward
+} from "react-icons/fi";
 
 const Header = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const dropdownRef = useRef(null);
 
   // Close dropdown when clicking outside
@@ -19,6 +29,7 @@ const Header = () => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
+        setIsHovered(false);
       }
     };
 
@@ -45,173 +56,314 @@ const Header = () => {
 
   const closeDropdown = () => {
     setIsOpen(false);
+    setIsHovered(false);
+  };
+
+  const dropdownVariants = {
+    hidden: {
+      opacity: 0,
+      y: -10,
+      scale: 0.95,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 500,
+        damping: 30,
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      }
+    },
+    exit: {
+      opacity: 0,
+      y: -10,
+      scale: 0.95,
+      transition: {
+        duration: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: {
+        type: "spring",
+        stiffness: 500,
+        damping: 30
+      }
+    }
   };
 
   return (
-    <div className={`sticky top-0 left-0 right-0 w-full flex items-center justify-between transition-all duration-300 z-50 ${
-      isScrolled 
-        ? "bg-gradient-to-r from-blue-700/95 to-indigo-800/95 backdrop-blur-xl shadow-2xl border-b border-blue-300/30 px-4 py-2" 
-        : "bg-gradient-to-r from-blue-600 to-indigo-700 shadow-lg border-b-4 border-blue-400 px-6 py-3"
-    }`}>
+    <motion.div 
+      className={`sticky top-0 left-0 right-0 w-full flex items-center justify-between transition-all duration-500 z-50 ${
+        isScrolled 
+          ? "bg-white/95 backdrop-blur-xl shadow-2xl border-b border-blue-100/50 px-4 py-2" 
+          : "bg-gradient-to-r from-blue-600/95 to-purple-600/95 backdrop-blur-lg shadow-lg border-b-4 border-blue-400/30 px-6 py-4"
+      }`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+    >
       
       {/* Logo Section */}
-      <div className="flex items-center">
+      <motion.div 
+        className="flex items-center gap-3"
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+      >
         <Image 
           src={logo} 
-          width={isScrolled ? 120 : 160}
-          height={isScrolled ? 45 : 60}
+          width={isScrolled ? 45 : 50}
+          height={isScrolled ? 45 : 50}
           alt="Logo" 
-          className="brightness-0 invert transition-all duration-300 hover:scale-105 cursor-pointer"
+          className={`transition-all duration-500 cursor-pointer ${
+            isScrolled ? "brightness-100" : "brightness-0 invert"
+          }`}
           onClick={() => navigateTo("/")}
         />
-      </div>
+        <div className={`font-bold tracking-tight transition-all duration-500 ${
+          isScrolled 
+            ? "text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-xl" 
+            : "text-white text-xl"
+        } hidden sm:block`}>
+          EduPortal
+        </div>
+      </motion.div>
 
-      {/* Title Section - Hidden on small screens */}
-      <div className={`font-bold text-white tracking-tight bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm transition-all duration-300 ${
-        isScrolled ? "text-xl" : "text-2xl"
-      } hidden sm:block`}>
-        Student Portal
-      </div>
-
+ 
       {/* Login Dropdown */}
       <div className="flex items-center gap-4" ref={dropdownRef}>
         <div className="py-2">
           <div className="relative inline-block">
-            <button
+            <motion.button
               type="button"
-              className="px-4 sm:px-6 py-2 sm:py-3 text-white bg-gradient-to-br from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-300/50 font-semibold rounded-xl text-sm sm:text-base inline-flex items-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 group"
+              className={`px-6 py-3 font-semibold rounded-2xl text-base inline-flex items-center transition-all duration-500 shadow-2xl transform group ${
+                isScrolled
+                  ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700"
+                  : "bg-white/20 backdrop-blur-sm text-white border-2 border-white/30 hover:bg-white/30 hover:border-white/50"
+              }`}
               onClick={toggleDropdown}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onHoverStart={() => setIsHovered(true)}
+              onHoverEnd={() => setIsHovered(false)}
             >
-              <span className="whitespace-nowrap">Log-in as</span>
-              <svg
-                className={`w-3 h-3 ml-2 sm:ml-3 transition-transform duration-300 ${
-                  isOpen ? 'rotate-180' : 'group-hover:rotate-90'
-                }`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+              <FiLogIn className="text-lg mr-2 group-hover:scale-110 transition-transform duration-300" />
+              <span className="whitespace-nowrap">Get Started</span>
+              <motion.div
+                animate={{ rotate: isOpen ? 180 : isHovered ? 90 : 0 }}
+                transition={{ duration: 0.3 }}
+                className="ml-2"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={3}
-                  d="m19 9-7 7-7-7"
-                />
-              </svg>
-            </button>
+                <FiChevronDown className="text-lg" />
+              </motion.div>
+            </motion.button>
 
             {/* Dropdown Menu */}
-            <div className={`absolute right-0 mt-3 w-48 sm:w-56 rounded-xl shadow-2xl bg-white/95 backdrop-blur-xl border border-white/20 overflow-hidden transition-all duration-300 transform origin-top-right ${
-              isOpen 
-                ? "scale-100 opacity-100 translate-y-0" 
-                : "scale-95 opacity-0 -translate-y-2 pointer-events-none"
-            }`}>
-              <div className="relative">
-                {/* Animated background effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-600/5"></div>
-                
-                <ul className="relative">
-                  {/* Teacher Option */}
-                  <li className="border-b border-gray-100/50 last:border-b-0 group">
-                    <Link
-                      href={`/auth?role=teacher`}
-                      className="flex items-center px-4 py-3 text-sm font-medium text-gray-700 hover:bg-blue-50/80 hover:text-blue-600 transition-all duration-200 group-hover:translate-x-1"
-                      onClick={closeDropdown}
-                    >
-                      <div className="relative">
-                        <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform duration-200">
-                          <LiaChalkboardTeacherSolid className="text-blue-600 text-lg" />
+            <AnimatePresence>
+              {isOpen && (
+                <motion.div
+                  variants={dropdownVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  className="absolute right-0 mt-3 w-64 rounded-2xl shadow-2xl bg-white/95 backdrop-blur-xl border border-white/20 overflow-hidden"
+                >
+                  <div className="relative">
+                    {/* Header */}
+                    <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 text-white">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                          <FiUser className="text-xl" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-lg">Welcome!</h3>
+                          <p className="text-blue-100 text-sm">Choose your role to continue</p>
                         </div>
                       </div>
-                      <span className="font-semibold">Teacher</span>
-                    </Link>
-                  </li>
+                    </div>
+                    
+                    {/* Options List */}
+                    <ul className="p-2">
+                      {/* Teacher Option */}
+                      <motion.li variants={itemVariants} className="group">
+                        <Link
+                          href={`/auth?role=teacher`}
+                          className="flex items-center px-4 py-4 text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100/50 rounded-xl transition-all duration-300 group-hover:translate-x-2 border-l-4 border-transparent group-hover:border-blue-500"
+                          onClick={closeDropdown}
+                        >
+                          <div className="relative">
+                            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                              <LiaChalkboardTeacherSolid className="text-white text-xl" />
+                            </div>
+                            {/* Hover effect */}
+                            <div className="absolute inset-0 bg-white/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          </div>
+                          <div className="flex-1">
+                            <span className="font-bold text-gray-800 block">Teacher</span>
+                            <span className="text-sm text-gray-600">Manage classes & quizzes</span>
+                          </div>
+                          <motion.div
+                            initial={{ x: -10, opacity: 0 }}
+                            whileHover={{ x: 0, opacity: 1 }}
+                            className="text-blue-500 transition-all duration-300"
+                          >
+                            <FiChevronDown className="transform -rotate-90" />
+                          </motion.div>
+                        </Link>
+                      </motion.li>
 
-                  {/* Student Option */}
-                  <li className="border-b border-gray-100/50 last:border-b-0 group">
-                    <Link
-                      href={`/auth?role=student`}
-                      className="flex items-center px-4 py-3 text-sm font-medium text-gray-700 hover:bg-green-50/80 hover:text-green-600 transition-all duration-200 group-hover:translate-x-1"
-                      onClick={closeDropdown}
-                    >
-                      <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform duration-200">
-                        <PiStudentBold className="text-green-600 text-lg" />
-                      </div>
-                      <span className="font-semibold">Student</span>
-                    </Link>
-                  </li>
+                      {/* Student Option */}
+                      <motion.li variants={itemVariants} className="group">
+                        <Link
+                          href={`/auth?role=student`}
+                          className="flex items-center px-4 py-4 text-gray-700 hover:bg-gradient-to-r hover:from-green-50 hover:to-green-100/50 rounded-xl transition-all duration-300 group-hover:translate-x-2 border-l-4 border-transparent group-hover:border-green-500"
+                          onClick={closeDropdown}
+                        >
+                          <div className="relative">
+                            <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                              <PiStudentBold className="text-white text-xl" />
+                            </div>
+                            <div className="absolute inset-0 bg-white/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          </div>
+                          <div className="flex-1">
+                            <span className="font-bold text-gray-800 block">Student</span>
+                            <span className="text-sm text-gray-600">Access courses & learn</span>
+                          </div>
+                          <motion.div
+                            initial={{ x: -10, opacity: 0 }}
+                            whileHover={{ x: 0, opacity: 1 }}
+                            className="text-green-500 transition-all duration-300"
+                          >
+                            <FiChevronDown className="transform -rotate-90" />
+                          </motion.div>
+                        </Link>
+                      </motion.li>
 
-                  {/* Admin Option */}
-                  <li className="group">
-                    <Link
-                      href="/auth"
-                      className="flex items-center px-4 py-3 text-sm font-medium text-gray-700 hover:bg-red-50/80 hover:text-red-600 transition-all duration-200 group-hover:translate-x-1"
-                      onClick={closeDropdown}
-                    >
-                      <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform duration-200">
-                        <RiAdminLine className="text-red-600 text-lg" />
-                      </div>
-                      <span className="font-semibold">Admin</span>
-                    </Link>
-                  </li>
-                </ul>
+                      {/* Admin Option */}
+                      <motion.li variants={itemVariants} className="group">
+                        <Link
+                          href="/auth"
+                          className="flex items-center px-4 py-4 text-gray-700 hover:bg-gradient-to-r hover:from-purple-50 hover:to-purple-100/50 rounded-xl transition-all duration-300 group-hover:translate-x-2 border-l-4 border-transparent group-hover:border-purple-500"
+                          onClick={closeDropdown}
+                        >
+                          <div className="relative">
+                            <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                              <RiAdminLine className="text-white text-xl" />
+                            </div>
+                            <div className="absolute inset-0 bg-white/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          </div>
+                          <div className="flex-1">
+                            <span className="font-bold text-gray-800 block">Administrator</span>
+                            <span className="text-sm text-gray-600">Manage system & users</span>
+                          </div>
+                          <motion.div
+                            initial={{ x: -10, opacity: 0 }}
+                            whileHover={{ x: 0, opacity: 1 }}
+                            className="text-purple-500 transition-all duration-300"
+                          >
+                            <FiChevronDown className="transform -rotate-90" />
+                          </motion.div>
+                        </Link>
+                      </motion.li>
+                    </ul>
 
-                {/* Dropdown arrow */}
-                <div className="absolute -top-2 right-4 w-4 h-4 bg-white/95 backdrop-blur-xl transform rotate-45 border-t border-l border-white/20"></div>
-              </div>
-            </div>
+                    {/* Footer */}
+                    <div className="border-t border-gray-100 p-3 bg-gray-50/50">
+                      <p className="text-center text-xs text-gray-500">
+                        New to EduPortal?{" "}
+                        <span className="text-blue-600 font-semibold">Learn more</span>
+                      </p>
+                    </div>
+
+                    {/* Dropdown arrow */}
+                    <div className="absolute -top-2 right-6 w-4 h-4 bg-white/95 backdrop-blur-xl transform rotate-45 border-t border-l border-white/20"></div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
-        {/* Mobile menu button (optional enhancement) */}
-        <button 
-          className="sm:hidden w-10 h-10 flex flex-col items-center justify-center space-y-1 group"
+        {/* Mobile menu button */}
+        <motion.button 
+          className="md:hidden w-12 h-12 flex flex-col items-center justify-center space-y-1.5 group bg-white/10 backdrop-blur-sm rounded-xl border border-white/20"
           onClick={toggleDropdown}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
-          <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-            isOpen ? 'rotate-45 translate-y-1.5' : ''
-          }`}></span>
-          <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-            isOpen ? 'opacity-0' : 'opacity-100'
-          }`}></span>
-          <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-            isOpen ? '-rotate-45 -translate-y-1.5' : ''
-          }`}></span>
-        </button>
+          <motion.span 
+            className={`w-6 h-0.5 bg-white transition-all duration-300 ${
+              isOpen ? 'rotate-45 translate-y-2' : ''
+            }`}
+            animate={{ backgroundColor: isScrolled ? '#4F46E5' : '#FFFFFF' }}
+          ></motion.span>
+          <motion.span 
+            className={`w-6 h-0.5 bg-white transition-all duration-300 ${
+              isOpen ? 'opacity-0' : 'opacity-100'
+            }`}
+            animate={{ backgroundColor: isScrolled ? '#4F46E5' : '#FFFFFF' }}
+          ></motion.span>
+          <motion.span 
+            className={`w-6 h-0.5 bg-white transition-all duration-300 ${
+              isOpen ? '-rotate-45 -translate-y-2' : ''
+            }`}
+            animate={{ backgroundColor: isScrolled ? '#4F46E5' : '#FFFFFF' }}
+          ></motion.span>
+        </motion.button>
       </div>
 
-      {/* Mobile Dropdown (simplified for small screens) */}
-      {isOpen && (
-        <div className="absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-white/20 sm:hidden">
-          <div className="px-4 py-2 space-y-1">
-            <Link
-              href={`/auth?role=teacher`}
-              className="flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 rounded-lg transition-colors duration-200"
-              onClick={closeDropdown}
-            >
-              <LiaChalkboardTeacherSolid className="text-blue-600 mr-3 text-xl" />
-              <span className="font-semibold">Teacher Login</span>
-            </Link>
-            <Link
-              href={`/auth?role=student`}
-              className="flex items-center px-4 py-3 text-gray-700 hover:bg-green-50 rounded-lg transition-colors duration-200"
-              onClick={closeDropdown}
-            >
-              <PiStudentBold className="text-green-600 mr-3 text-xl" />
-              <span className="font-semibold">Student Login</span>
-            </Link>
-            <Link
-              href="/auth"
-              className="flex items-center px-4 py-3 text-gray-700 hover:bg-red-50 rounded-lg transition-colors duration-200"
-              onClick={closeDropdown}
-            >
-              <RiAdminLine className="text-red-600 mr-3 text-xl" />
-              <span className="font-semibold">Admin Login</span>
-            </Link>
-          </div>
-        </div>
-      )}
-    </div>
+      {/* Mobile Dropdown Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            className="absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-white/20 md:hidden shadow-2xl"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="px-4 py-4 space-y-2">
+       
+
+              {/* Login Options for Mobile */}
+              <div className="space-y-2 border-t border-gray-100 pt-4">
+                <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider px-2 mb-2">
+                  Login As
+                </h4>
+                {[
+                  { name: "Teacher", icon: LiaChalkboardTeacherSolid, color: "blue", path: "/auth?role=teacher" },
+                  { name: "Student", icon: PiStudentBold, color: "green", path: "/auth?role=student" },
+                  { name: "Admin", icon: RiAdminLine, color: "purple", path: "/auth" },
+                ].map((item) => (
+                  <motion.div
+                    key={item.name}
+                    whileHover={{ x: 5 }}
+                    whileTap={{ x: 0 }}
+                  >
+                    <Link
+                      href={item.path}
+                      className={`flex items-center px-4 py-3 text-gray-700 hover:bg-${item.color}-50 rounded-xl transition-colors duration-200 border-l-4 border-${item.color}-500`}
+                      onClick={closeDropdown}
+                    >
+                      <item.icon className={`text-${item.color}-600 mr-3 text-xl`} />
+                      <span className="font-semibold">{item.name}</span>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 };
 

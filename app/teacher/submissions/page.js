@@ -1,3 +1,4 @@
+"use client"
 import EvaluateSubmissions from '@/ui/page-sections/EvaluateQuiz'
 import React from 'react'
 

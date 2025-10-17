@@ -1,10 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useClasses } from "@/hooks/useClasses";
-import { IoAdd } from "react-icons/io5";
 import { Loader2 } from "lucide-react";
-import { useCourses } from "@/hooks/useCourses";
-import { createRoleBasedUrl } from "@/utils";
 import { roleBasedUrl } from "@/config";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { FiEdit, FiUsers, FiBook, FiArrowRight, FiPlus } from "react-icons/fi";
@@ -13,7 +10,6 @@ import { useState } from "react";
 
 const ClassCard = () => {
   const { classes, removeClass } = useClasses();
-  const { courses } = useCourses();
   const router = useRouter();
   const [deletingId, setDeletingId] = useState(null);
 
@@ -233,12 +229,7 @@ const ClassCard = () => {
                     </div>
                   </div>
 
-                  {/* Hover Arrow */}
-                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300">
-                    <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-                      <FiArrowRight className="text-white text-sm" />
-                    </div>
-                  </div>
+            
                 </motion.div>
               ))}
             </div>
